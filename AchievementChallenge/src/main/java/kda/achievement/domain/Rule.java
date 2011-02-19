@@ -18,6 +18,10 @@ public class Rule {
 	@XStreamAsAttribute
 	private String value;
 
+	public Rule() {
+		
+	}
+	
 	/**
 	 * @return the type
 	 */

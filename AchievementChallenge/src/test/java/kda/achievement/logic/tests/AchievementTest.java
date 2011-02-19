@@ -15,8 +15,12 @@ import kda.achievement.domain.Rule;
 
 public class AchievementTest extends TestCase {
 
+	private XStream xstream;
+	
 	@Override
 	protected void setUp() throws Exception {
+		xstream = new XStream(new DomDriver());
+		xstream.processAnnotations(Achievement.class);
 		super.setUp();
 	}
 	
@@ -24,33 +28,45 @@ public class AchievementTest extends TestCase {
 	protected void tearDown() throws Exception {
 		super.tearDown();
 	}
-	
+
+	/**
+	 * Resources on the classpath should be readable as streams
+	 */
 	public void testResourcesAvailable() {
 		
 		InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("sharpshooterAchievement.xml");
 		Assert.assertNotNull("The resource cannot be found.", inputStream);
 	}
 	
-	public void testAchievementXMLUnmarshall() {
-
-		InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("sharpshooterAchievement.xml");
-		Assert.assertNotNull("The resource cannot be found.", inputStream);
-		XStream xstream = new XStream(new DomDriver());
-		xstream.autodetectAnnotations(true);
+	/**
+	 * Creates an Achievement object and marshalls it into a String of xml
+	 */
+	public void testAchievementXMLMarshall() {
 		
-		Achievement foo = new Achievement();
-		foo.setName("Kyle");
-		foo.setShortDescription("test");
-		foo.setLongDescription("This is an interesting test!");
+		Achievement achievement = new Achievement();
+		achievement.setName("Roy Halladay Achievement");
+		achievement.setShortDescription("You pitched a perfect game!");
+		achievement.setLongDescription("This achievement is awarded when you pitch a perfect recording 0 hits and 0 earned runs.");
 		
 		List<Rule> rules = new ArrayList<Rule>();
 		Rule rule = new Rule();
 		rule.setType("MATH");
 		rule.setMethod("DIVIDE");
 		rules.add(rule);
-		foo.setRules(rules);
-		System.out.println(xstream.toXML(foo));
+		achievement.setRules(rules);
+		String xml = xstream.toXML(achievement);
+		Assert.assertNotNull(xml);
+		Assert.assertTrue(xml.startsWith("<Achievement>"));
+	}
+	
+	/**
+	 * Loads a resource from the classpath and unmarshalls it into an Achievement object
+	 */
+	public void testAchievementXMLUnmarshall() {
 
+		InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("sharpshooterAchievement.xml");
+		Assert.assertNotNull("The resource cannot be found.", inputStream);
+		
 		//Create an Achievement instance out of my xml
 		Achievement achievement = (Achievement)xstream.fromXML(inputStream);
 		Assert.assertNotNull(achievement);
