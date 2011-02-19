@@ -1,3 +1,12 @@
-<Achievement>
+<Achievement type="Game">
 	<Name>Sharpshooter</Name>
+	<ShortDescription>Your aim is tried and true!</ShortDescription>
+	<LongDescription>A player receives this achievement for landing 75% of their attacks.</LongDescription>
+	<Rules>
+		<Rule type="PLAYER" method="hitCount"/>
+		<Rule type="MATH" method="DIVIDE"/>
+		<Rule type="PLAYER" method="attemptedAttackCount"/>
+		<Rule type="EVAL" method="GREATER_THAN_OR_EQUAL"/>
+		<Rule type="CONSTANT" value=".75"/>
+	</Rules>
 </Achievement>
