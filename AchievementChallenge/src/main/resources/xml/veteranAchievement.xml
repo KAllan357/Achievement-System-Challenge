@@ -1,0 +1,10 @@
+<Achievement type="Global">
+	<Name>Veteran</Name>
+	<ShortDescription>Boy! You sure like this game!</ShortDescription>
+	<LongDescription>A player receives this achievement for playing more than 1,000 games total.</LongDescription>
+	<Rules>
+		<Rule type="PLAYER" method="totalGamesPlayed"/>
+		<Rule type="EVAL" method="GREATER_THAN"/>
+		<Rule type="CONSTANT" value="1000"/>
+	</Rules>
+</Achievement>

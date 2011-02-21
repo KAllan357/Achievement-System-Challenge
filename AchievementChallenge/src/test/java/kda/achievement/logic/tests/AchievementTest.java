@@ -34,7 +34,7 @@ public class AchievementTest extends TestCase {
 	 */
 	public void testResourcesAvailable() {
 		
-		InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("sharpshooterAchievement.xml");
+		InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("xml/sharpshooterAchievement.xml");
 		Assert.assertNotNull("The resource cannot be found.", inputStream);
 	}
 	
@@ -64,7 +64,7 @@ public class AchievementTest extends TestCase {
 	 */
 	public void testAchievementXMLUnmarshall() {
 
-		InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("sharpshooterAchievement.xml");
+		InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("xml/sharpshooterAchievement.xml");
 		Assert.assertNotNull("The resource cannot be found.", inputStream);
 		
 		//Create an Achievement instance out of my xml

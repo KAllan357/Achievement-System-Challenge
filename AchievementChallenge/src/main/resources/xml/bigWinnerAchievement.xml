@@ -1,0 +1,10 @@
+<Achievement type="Global">
+	<Name>Big Winner</Name>
+	<ShortDescription>You have won 200 times!</ShortDescription>
+	<LongDescription>A player receives this achievement for winning 200 games.</LongDescription>
+	<Rules>
+		<Rule type="PLAYER" method="totalWins"/>
+		<Rule type="EVAL" method="GREATER_THAN_OR_EQUAL"/>
+		<Rule type="CONSTANT" value="200"/>
+	</Rules>
+</Achievement>
