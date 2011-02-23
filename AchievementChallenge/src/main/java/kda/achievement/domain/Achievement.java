@@ -1,5 +1,6 @@
 package kda.achievement.domain;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
@@ -24,7 +25,7 @@ public class Achievement {
 	private String longDescription;
 	
 	@XStreamAlias("Rules")
-	private List<Rule> rules;
+	private LinkedList<Rule> rules;
 	
 	public Achievement() {
 		
@@ -96,7 +97,7 @@ public class Achievement {
 	/**
 	 * @param rules the rules to set
 	 */
-	public final void setRules(List<Rule> rules) {
+	public final void setRules(LinkedList<Rule> rules) {
 		this.rules = rules;
 	}
 }

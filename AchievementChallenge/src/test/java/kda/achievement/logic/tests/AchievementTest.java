@@ -1,8 +1,7 @@
 package kda.achievement.logic.tests;
 
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedList;
 
 import org.junit.Assert;
 
@@ -48,7 +47,7 @@ public class AchievementTest extends TestCase {
 		achievement.setShortDescription("You pitched a perfect game!");
 		achievement.setLongDescription("This achievement is awarded when you pitch a perfect recording 0 hits and 0 earned runs.");
 		
-		List<Rule> rules = new ArrayList<Rule>();
+		LinkedList<Rule> rules = new LinkedList<Rule>();
 		Rule rule = new Rule();
 		rule.setType("MATH");
 		rule.setMethod("DIVIDE");
