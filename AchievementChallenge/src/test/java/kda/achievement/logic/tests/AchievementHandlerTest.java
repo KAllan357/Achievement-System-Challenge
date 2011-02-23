@@ -3,15 +3,13 @@ package kda.achievement.logic.tests;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
@@ -60,12 +58,11 @@ public class AchievementHandlerTest extends TestCase {
 		List<Achievement> achievementList = getAchievementList();
 		Map<Player, Achievement> playerAchievementMap = achievementHandler.checkForGlobalAchievements(game, achievementList);
 		Assert.assertNotNull(playerAchievementMap);
-		
 	}
-
+	
 	private Game createNewGame() {
 		Game game = new Game(createRedTeam(), createBlueTeam());
-		return null;
+		return game;
 	}
 	
 
