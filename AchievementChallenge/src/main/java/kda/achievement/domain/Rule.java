@@ -6,6 +6,12 @@ import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 @XStreamAlias("Rule")
 public class Rule {
 	
+	public static final String TYPE_GAMEPLAYER = "GAMEPLAYER";
+	public static final String TYPE_PLAYER = "PLAYER";
+	public static final String TYPE_MATH = "MATH";
+	public static final String TYPE_EVAL = "EVAL";
+	public static final String TYPE_CONSTANT = "CONSTANT";
+	
 	@XStreamAlias("type")
 	@XStreamAsAttribute
 	private String type;

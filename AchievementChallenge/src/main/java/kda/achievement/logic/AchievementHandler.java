@@ -10,7 +10,7 @@ import kda.achievement.domain.Player;
 
 public class AchievementHandler {
 
-	public Map<Player, Achievement> checkForGlobalAchievements(Game game, List<Achievement> achievementList) {
+	public List<Achievement> checkForGlobalAchievements(Player game, List<Achievement> achievementList) {
 		return null;
 	}
 	

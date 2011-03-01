@@ -54,28 +54,12 @@ public class AchievementHandlerTest extends TestCase {
 	
 	public void testCheckForGlobalAchievements() throws FileNotFoundException {
 		AchievementHandler achievementHandler = new AchievementHandler();
-		Game game = createNewGame();
+		Player player = new Player();
 		List<Achievement> achievementList = getAchievementList();
-		Map<Player, Achievement> playerAchievementMap = achievementHandler.checkForGlobalAchievements(game, achievementList);
-		Assert.assertNotNull(playerAchievementMap);
+		List<Achievement> playerAchievementList = achievementHandler.checkForGlobalAchievements(player, achievementList);
+		Assert.assertNotNull(playerAchievementList);
 	}
 	
-	private Game createNewGame() {
-		Game game = new Game(createRedTeam(), createBlueTeam());
-		return game;
-	}
-	
-
-	private List<GamePlayer> createRedTeam() {
-		List<GamePlayer> redTeam = new ArrayList<GamePlayer>();
-		return redTeam;
-	}
-
-	private List<GamePlayer> createBlueTeam() {
-		List<GamePlayer> blueTeam = new ArrayList<GamePlayer>();
-		return blueTeam;
-	}
-
 	private List<Achievement> getAchievementList() throws FileNotFoundException {
 		List<Achievement> achievementList = new ArrayList<Achievement>();
 		

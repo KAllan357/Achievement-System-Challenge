@@ -8,6 +8,10 @@ public class Game {
 	private int numberOfPlayers;
 	private String mapName;
 	
+	//Game Over information
+	private boolean completed;
+	private String winningTeam;
+	
 	//Teams
 	List<GamePlayer> redTeam;
 	List<GamePlayer> blueTeam;
@@ -31,19 +35,92 @@ public class Game {
 		setNumberOfPlayers(totalPlayers);
 	}
 
-	public int getNumberOfPlayers() {
+	/**
+	 * @return the numberOfPlayers
+	 */
+	public final int getNumberOfPlayers() {
 		return numberOfPlayers;
 	}
 
-	public void setNumberOfPlayers(int numberOfPlayers) {
+	/**
+	 * @param numberOfPlayers the numberOfPlayers to set
+	 */
+	public final void setNumberOfPlayers(int numberOfPlayers) {
 		this.numberOfPlayers = numberOfPlayers;
 	}
 
-	public String getMapName() {
+	/**
+	 * @return the mapName
+	 */
+	public final String getMapName() {
 		return mapName;
 	}
 
-	public void setMapName(String mapName) {
+	/**
+	 * @param mapName the mapName to set
+	 */
+	public final void setMapName(String mapName) {
 		this.mapName = mapName;
+	}
+
+	/**
+	 * @return the completed
+	 */
+	public final boolean isCompleted() {
+		return completed;
+	}
+
+	/**
+	 * Calling this method sets the winning team
+	 * to the passed in parameter (a not-so-good idea)
+	 * and sets the completed boolean to true.
+	 * 
+	 * @param completed the completed to set
+	 */
+	public final void setGameOver(String winningTeam) {
+		this.winningTeam = winningTeam;
+		this.completed = true;
+	}
+
+	/**
+	 * @return the redTeam
+	 */
+	public final List<GamePlayer> getRedTeam() {
+		return redTeam;
+	}
+
+	/**
+	 * @param redTeam the redTeam to set
+	 */
+	public final void setRedTeam(List<GamePlayer> redTeam) {
+		this.redTeam = redTeam;
+	}
+
+	/**
+	 * @return the blueTeam
+	 */
+	public final List<GamePlayer> getBlueTeam() {
+		return blueTeam;
+	}
+
+	/**
+	 * @param blueTeam the blueTeam to set
+	 */
+	public final void setBlueTeam(List<GamePlayer> blueTeam) {
+		this.blueTeam = blueTeam;
+	}
+
+	/**
+	 * @return the winningTeam
+	 */
+	public final String getWinningTeam() {
+		return winningTeam;
+	}
+
+	/**
+	 * @param winningTeam the winningTeam to set
+	 */
+	public final void setWinningTeam(String winningTeam) {
+		this.winningTeam = winningTeam;
 	}
 }
