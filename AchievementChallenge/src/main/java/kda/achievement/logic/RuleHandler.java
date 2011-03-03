@@ -1,9 +1,17 @@
 package kda.achievement.logic;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.math.fraction.Fraction;
+import org.apache.commons.math.util.MathUtils;
+
+import kda.achievement.domain.GamePlayer;
+import kda.achievement.domain.Player;
 import kda.achievement.domain.Rule;
 import kda.achievement.enumeration.Comparators;
 import kda.achievement.enumeration.Operators;
@@ -67,7 +75,6 @@ public class RuleHandler {
 		if(operatorsList.size() != numbersListMinusOne) {
 			isWellFormed = false;
 		}
-		
 		return isWellFormed;
 	}
 
@@ -125,5 +132,88 @@ public class RuleHandler {
 	 */
 	public final void setConstant(BigDecimal constant) {
 		this.constant = constant;
+	}
+
+	public List<Integer> processNumbersList(Player player, GamePlayer gamePlayer) {
+		
+		List<Integer> processedValues = new ArrayList<Integer>();
+		if(player != null) {
+			
+		}
+		if(gamePlayer != null) {
+			Class gamePlayerClass = GamePlayer.class;
+			
+			for(String methodName : numbersList) {
+				
+				try {
+					String completeMethodName = "get" + methodName.substring(0, 1).toUpperCase() + methodName.substring(1);
+					Method methodToInvoke = gamePlayerClass.getMethod(completeMethodName);
+					Integer value = (Integer)methodToInvoke.invoke(gamePlayer, new Object[0]);
+					processedValues.add(value);
+				} 
+				catch (NoSuchMethodException e) {
+					e.printStackTrace();
+				} catch (InvocationTargetException e) {
+					e.printStackTrace();
+				} catch (IllegalArgumentException e) {
+					e.printStackTrace();
+				} catch (IllegalAccessException e) {
+					e.printStackTrace();
+				}	
+			}
+			
+		}
+		return processedValues;
+	}
+
+	public boolean processRuleEvaluation(List<Integer> achievementValues) {
+
+		//achievementValues are the values from the object being evaluated
+		//get the first, in case it is the only entry.
+		BigDecimal total = new BigDecimal(achievementValues.get(0));
+		for(Integer value : achievementValues.subList(1, achievementValues.size())) {
+			
+			//for the rest of the list, get an operator and do the math.
+			Operators operator = operatorsList.get(0);
+			BigDecimal valueBigDecimal = new BigDecimal(value);
+			switch(operator) {
+				case ADD:
+					total = total.add(valueBigDecimal);
+					break;
+				case DIVIDE:
+					total = total.divide(valueBigDecimal, 2, RoundingMode.HALF_UP);
+					break;
+				case MULTIPLY:
+					total = total.multiply(valueBigDecimal);
+					break;
+				case SUBTRACT:
+					total = total.subtract(valueBigDecimal);
+					break;
+			}
+		}
+		
+		//Depending on the comparator, do a different evaluation to the constant
+		boolean achievementGranted = false;
+		switch(comparator) {
+			case EQUAL:
+				achievementGranted = total.equals(constant);
+				break;
+			case GREATER_THAN:
+				achievementGranted = total.compareTo(constant) == 1;
+				break;
+			case GREATER_THAN_OR_EQUAL:
+				achievementGranted = total.compareTo(constant) == 0 || total.compareTo(constant) == 1;
+				break;
+			case LESS_THAN:
+				achievementGranted = total.compareTo(constant) == -1;
+				break;
+			case LESS_THAN_OR_EQUAL:
+				achievementGranted = total.compareTo(constant) == 0 || total.compareTo(constant) == -1;
+				break;
+			case NOT_EQUAL:
+				achievementGranted = !total.equals(constant);
+				break;
+		}
+		return achievementGranted;
 	}
 }

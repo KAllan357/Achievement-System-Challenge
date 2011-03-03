@@ -63,12 +63,14 @@ public class AchievementHandlerTest extends TestCase {
 	private List<Achievement> getAchievementList() throws FileNotFoundException {
 		List<Achievement> achievementList = new ArrayList<Achievement>();
 		
+		//Load the XML files
 		List<File> achievementFiles = new ArrayList<File>();
 		File achievementDirectory = new File(this.getClass().getClassLoader().getResource("xml/").getFile());
 		for(File achievement : achievementDirectory.listFiles()) {
 			achievementFiles.add(achievement);
 		}
 		
+		//Transform the XML into objects
 		for(File achievementFile : achievementFiles) {
 			InputStream achievementStream = new FileInputStream(achievementFile);
 			Achievement achievement = (Achievement)xstream.fromXML(achievementStream);
