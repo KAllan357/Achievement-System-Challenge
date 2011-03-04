@@ -55,7 +55,7 @@ public class RuleHandlerTest extends TestCase {
 		GamePlayer gamePlayer = GameHelper.createGamePlayer();
 		
 		//Process the XML section for getting information from objects
-		List<Integer> achievementValues = ruleHandler.processNumbersList(null, gamePlayer);
+		List<Integer> achievementValues = ruleHandler.processMethodNameMap(null, gamePlayer);
 		Assert.assertNotNull(achievementValues);
 
 		//GameHelper.createPlayer creates a player with 30 'hits' in
@@ -71,14 +71,14 @@ public class RuleHandlerTest extends TestCase {
 		GamePlayer gamePlayer = GameHelper.createGamePlayer();
 		
 		//Process the XML section for getting information from objects
-		List<Integer> achievementValues = ruleHandler.processNumbersList(null, gamePlayer);
+		List<Integer> achievementValues = ruleHandler.processMethodNameMap(null, gamePlayer);
 		boolean achievementGranted = ruleHandler.processRuleEvaluation(achievementValues);
 		Assert.assertFalse(achievementGranted);
 		
 		//Make the gamePlayer have the appropriate accuracy for the sharpshooter achievement
 		gamePlayer.setHitCount(8);
 		gamePlayer.setAttemptedAttackCount(10);
-		achievementValues = ruleHandler.processNumbersList(null, gamePlayer);
+		achievementValues = ruleHandler.processMethodNameMap(null, gamePlayer);
 		achievementGranted = ruleHandler.processRuleEvaluation(achievementValues);
 		Assert.assertTrue(achievementGranted);
 	}
@@ -90,12 +90,12 @@ public class RuleHandlerTest extends TestCase {
 		
 		Player player = GameHelper.createPlayer();
 		player.setTotalWins(199);
-		List<Integer> achievementValues = ruleHandler.processNumbersList(player, null);
+		List<Integer> achievementValues = ruleHandler.processMethodNameMap(player, null);
 		boolean achievementGranted = ruleHandler.processRuleEvaluation(achievementValues);
 		Assert.assertFalse(achievementGranted);
 		
 		player.setTotalWins(205);
-		achievementValues = ruleHandler.processNumbersList(player, null);
+		achievementValues = ruleHandler.processMethodNameMap(player, null);
 		achievementGranted = ruleHandler.processRuleEvaluation(achievementValues);
 		Assert.assertTrue(achievementGranted);
 	}
@@ -109,14 +109,14 @@ public class RuleHandlerTest extends TestCase {
 		gamePlayer.setTotalPhysicalDamageInflicted(30);
 		gamePlayer.setTotalMagicalDamageInflicted(20);
 		gamePlayer.setTotalDamageInflicted();
-		List<Integer> achievementValues = ruleHandler.processNumbersList(null, gamePlayer);
+		List<Integer> achievementValues = ruleHandler.processMethodNameMap(null, gamePlayer);
 		boolean achievementGranted = ruleHandler.processRuleEvaluation(achievementValues);
 		Assert.assertFalse(achievementGranted);
 		
 		gamePlayer.setTotalPhysicalDamageInflicted(260);
 		gamePlayer.setTotalMagicalDamageInflicted(300);
 		gamePlayer.setTotalDamageInflicted();
-		achievementValues = ruleHandler.processNumbersList(null, gamePlayer);
+		achievementValues = ruleHandler.processMethodNameMap(null, gamePlayer);
 		achievementGranted = ruleHandler.processRuleEvaluation(achievementValues);
 		Assert.assertTrue(achievementGranted);
 	}
@@ -128,12 +128,12 @@ public class RuleHandlerTest extends TestCase {
 		
 		Player player = GameHelper.createPlayer();
 		player.setTotalGamesPlayed(998);
-		List<Integer> achievementValues = ruleHandler.processNumbersList(player, null);
+		List<Integer> achievementValues = ruleHandler.processMethodNameMap(player, null);
 		boolean achievementGranted = ruleHandler.processRuleEvaluation(achievementValues);
 		Assert.assertFalse(achievementGranted);
 		
 		player.setTotalGamesPlayed(1002);
-		achievementValues = ruleHandler.processNumbersList(player, null);
+		achievementValues = ruleHandler.processMethodNameMap(player, null);
 		achievementGranted = ruleHandler.processRuleEvaluation(achievementValues);
 		Assert.assertTrue(achievementGranted);
 	}

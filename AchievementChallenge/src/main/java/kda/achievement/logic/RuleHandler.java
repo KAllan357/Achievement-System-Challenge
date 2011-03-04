@@ -62,7 +62,16 @@ public class RuleHandler {
 		}
 	}
 	
-	public List<Integer> processNumbersList(Player player, GamePlayer gamePlayer) {
+	/**
+	 * Processes this instance's methodNameMap using reflection. The parameters passed in should contain the 
+	 * methods that have been loaded into the methodNameMap and they will be executed using reflection and
+	 * returned.
+	 * 
+	 * @param player
+	 * @param gamePlayer
+	 * @return List<Integer>
+	 */
+	public List<Integer> processMethodNameMap(Player player, GamePlayer gamePlayer) {
 
 		List<Integer> processedValues = new ArrayList<Integer>();
 		Class<Player> playerClass = Player.class;
@@ -91,13 +100,22 @@ public class RuleHandler {
 		return processedValues;
 	}
 
+	/**
+	 * Receives a List of values that have been processed and compares them against
+	 * this instance's operatorsList, comparator, and constant members. First, operators 
+	 * are applied and the appropriate math is executed. Next, the comparator is evaluated
+	 * with the previous operation and the constant member. Finally, The result of that
+	 * comparison is returned.
+	 * 
+	 * @param achievementValues
+	 * @return boolean
+	 */
 	public boolean processRuleEvaluation(List<Integer> achievementValues) {
 
 		// achievementValues are the values from the object being evaluated
 		// get the first, in case it is the only entry.
 		BigDecimal total = new BigDecimal(achievementValues.get(0));
-		for (Integer value : achievementValues.subList(1,
-				achievementValues.size())) {
+		for (Integer value : achievementValues.subList(1, achievementValues.size())) {
 
 			// for the rest of the list, get an operator and do the math.
 			Operators operator = operatorsList.get(0);
@@ -143,6 +161,11 @@ public class RuleHandler {
 		return achievementGranted;
 	}
 
+	/**
+	 * Checks to see whether or not this class was built correctly when it was instantiated.
+	 * 
+	 * @return boolean
+	 */
 	private boolean isWellFormed() {
 
 		boolean isWellFormed = true;
