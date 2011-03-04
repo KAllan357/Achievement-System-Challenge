@@ -37,7 +37,7 @@ public class RuleHandlerTest extends TestCase {
 	public void testRuleHandlerConstruction() {
 		
 		//Get the ruleList for the Sharpshooter Achievement
-		List<Rule> ruleList = getRuleList();
+		List<Rule> ruleList = getSharpshooterAchievementRuleList();
 		Assert.assertNotNull(ruleList);
 		Assert.assertFalse(ruleList.isEmpty());
 		
@@ -49,14 +49,14 @@ public class RuleHandlerTest extends TestCase {
 	public void testNumbersReflection() {
 		
 		//Get some rules and create a Handler
-		List<Rule> ruleList = getRuleList();
+		List<Rule> ruleList = getSharpshooterAchievementRuleList();
 		RuleHandler ruleHandler = new RuleHandler(ruleList);
 
 		Player player = GameHelper.createPlayer();
 		GamePlayer gamePlayer = GameHelper.createGamePlayer();
 		
 		//Process the XML section for getting information from objects
-		List<Integer> achievementValues = ruleHandler.processNumbersList(player, gamePlayer);
+		List<Integer> achievementValues = ruleHandler.processNumbersList(null, gamePlayer);
 		Assert.assertNotNull(achievementValues);
 
 		//GameHelper.createPlayer creates a player with 30 'hits' in
@@ -64,28 +64,82 @@ public class RuleHandlerTest extends TestCase {
 		Assert.assertEquals(30, achievementValues.get(0));
 	}
 	
-	public void testRuleEvaluation() {
+	public void testSharpshooterAchievementRulesEvaluation() {
 
-		List<Rule> ruleList = getRuleList();
+		List<Rule> ruleList = getSharpshooterAchievementRuleList();
 		RuleHandler ruleHandler = new RuleHandler(ruleList);
 
-		Player player = GameHelper.createPlayer();
 		GamePlayer gamePlayer = GameHelper.createGamePlayer();
 		
 		//Process the XML section for getting information from objects
-		List<Integer> achievementValues = ruleHandler.processNumbersList(player, gamePlayer);
+		List<Integer> achievementValues = ruleHandler.processNumbersList(null, gamePlayer);
 		boolean achievementGranted = ruleHandler.processRuleEvaluation(achievementValues);
 		Assert.assertFalse(achievementGranted);
 		
 		//Make the gamePlayer have the appropriate accuracy for the sharpshooter achievement
 		gamePlayer.setHitCount(8);
 		gamePlayer.setAttemptedAttackCount(10);
-		achievementValues = ruleHandler.processNumbersList(player, gamePlayer);
+		achievementValues = ruleHandler.processNumbersList(null, gamePlayer);
 		achievementGranted = ruleHandler.processRuleEvaluation(achievementValues);
 		Assert.assertTrue(achievementGranted);
 	}
 	
-	private List<Rule> getRuleList() {
+	public void testBigWinnerAchievement() {
+		
+		List<Rule> ruleList = getBigWinnerAchievementRuleList();
+		RuleHandler ruleHandler = new RuleHandler(ruleList);
+		
+		Player player = GameHelper.createPlayer();
+		player.setTotalWins(199);
+		List<Integer> achievementValues = ruleHandler.processNumbersList(player, null);
+		boolean achievementGranted = ruleHandler.processRuleEvaluation(achievementValues);
+		Assert.assertFalse(achievementGranted);
+		
+		player.setTotalWins(205);
+		achievementValues = ruleHandler.processNumbersList(player, null);
+		achievementGranted = ruleHandler.processRuleEvaluation(achievementValues);
+		Assert.assertTrue(achievementGranted);
+	}
+	
+	public void testBruiserAchievement() {
+		
+		List<Rule> ruleList = getBruiserAchievementRuleList();
+		RuleHandler ruleHandler = new RuleHandler(ruleList);
+		
+		GamePlayer gamePlayer = GameHelper.createGamePlayer();
+		gamePlayer.setTotalPhysicalDamageInflicted(30);
+		gamePlayer.setTotalMagicalDamageInflicted(20);
+		gamePlayer.setTotalDamageInflicted();
+		List<Integer> achievementValues = ruleHandler.processNumbersList(null, gamePlayer);
+		boolean achievementGranted = ruleHandler.processRuleEvaluation(achievementValues);
+		Assert.assertFalse(achievementGranted);
+		
+		gamePlayer.setTotalPhysicalDamageInflicted(260);
+		gamePlayer.setTotalMagicalDamageInflicted(300);
+		gamePlayer.setTotalDamageInflicted();
+		achievementValues = ruleHandler.processNumbersList(null, gamePlayer);
+		achievementGranted = ruleHandler.processRuleEvaluation(achievementValues);
+		Assert.assertTrue(achievementGranted);
+	}
+	
+	public void testVeteranAchievement() {
+		
+		List<Rule> ruleList = getVeteranAchievementRuleList();
+		RuleHandler ruleHandler = new RuleHandler(ruleList);
+		
+		Player player = GameHelper.createPlayer();
+		player.setTotalGamesPlayed(998);
+		List<Integer> achievementValues = ruleHandler.processNumbersList(player, null);
+		boolean achievementGranted = ruleHandler.processRuleEvaluation(achievementValues);
+		Assert.assertFalse(achievementGranted);
+		
+		player.setTotalGamesPlayed(1002);
+		achievementValues = ruleHandler.processNumbersList(player, null);
+		achievementGranted = ruleHandler.processRuleEvaluation(achievementValues);
+		Assert.assertTrue(achievementGranted);
+	}
+	
+	private List<Rule> getSharpshooterAchievementRuleList() {
 		
 		InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("xml/sharpshooterAchievement.xml");
 		
@@ -93,4 +147,31 @@ public class RuleHandlerTest extends TestCase {
 		Achievement achievement = (Achievement)xstream.fromXML(inputStream);
 		return achievement.getRules();
 	}
+	
+	private List<Rule> getBigWinnerAchievementRuleList() {
+		
+		InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("xml/bigWinnerAchievement.xml");
+		
+		//Create an Achievement instance out of my xml
+		Achievement achievement = (Achievement)xstream.fromXML(inputStream);
+		return achievement.getRules();
+	}
+	
+	private List<Rule> getBruiserAchievementRuleList() {
+		
+		InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("xml/bruiserAchievement.xml");
+		
+		//Create an Achievement instance out of my xml
+		Achievement achievement = (Achievement)xstream.fromXML(inputStream);
+		return achievement.getRules();
+	}
+
+	private List<Rule> getVeteranAchievementRuleList() {
+	
+	InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("xml/veteranAchievement.xml");
+	
+	//Create an Achievement instance out of my xml
+	Achievement achievement = (Achievement)xstream.fromXML(inputStream);
+	return achievement.getRules();
+}
 }
