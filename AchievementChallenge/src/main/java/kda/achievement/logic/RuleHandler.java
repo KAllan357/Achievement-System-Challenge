@@ -1,11 +1,13 @@
 package kda.achievement.logic;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import kda.achievement.domain.GamePlayer;
 import kda.achievement.domain.Player;
@@ -15,7 +17,7 @@ import kda.achievement.enumeration.Operators;
 
 public class RuleHandler {
 
-	private List<String> methodNameList = new ArrayList<String>();
+	private Map<String, String> methodNameMap = new HashMap<String, String>();
 	private List<Operators> operatorsList = new ArrayList<Operators>();
 	private Comparators comparator;
 	private BigDecimal constant;
@@ -27,6 +29,7 @@ public class RuleHandler {
 	 */
 	public RuleHandler(List<Rule> rulesList) {
 
+		int mapIndex = 0;
 		for (Rule rule : rulesList) {
 			String ruleType = rule.getType();
 			String ruleValue = rule.getValue();
@@ -35,7 +38,7 @@ public class RuleHandler {
 			if (Rule.TYPE_PLAYER.equals(ruleType) || Rule.TYPE_GAMEPLAYER.equals(ruleType)) {
 
 				// Add to numbersList
-				this.methodNameList.add(ruleMethod);
+				this.methodNameMap.put(ruleType + mapIndex, ruleMethod);
 			}
 			if (Rule.TYPE_MATH.equals(ruleType)) {
 
@@ -52,59 +55,37 @@ public class RuleHandler {
 				// Add as constant
 				this.constant = new BigDecimal(ruleValue);
 			}
+			mapIndex++;
 		}
 		if (!isWellFormed()) {
-			throw new IllegalArgumentException(
-					"This rulesList was not well formed. Please ensure that the Rules are defined correctly.");
+			throw new IllegalArgumentException("This rulesList was not well formed. Please ensure that the Rules are defined correctly.");
 		}
 	}
 	
 	public List<Integer> processNumbersList(Player player, GamePlayer gamePlayer) {
 
 		List<Integer> processedValues = new ArrayList<Integer>();
-		if (player != null) {
-			Class playerClass = Player.class;
-			for (String methodName : methodNameList) {
-				try {
-					// CamelCases the method name
-					String completeMethodName = "get"
-							+ methodName.substring(0, 1).toUpperCase()
-							+ methodName.substring(1);
+		Class<Player> playerClass = Player.class;
+		Class<GamePlayer> gamePlayerClass = GamePlayer.class;
+		for(Entry<String, String> entry : methodNameMap.entrySet()) {
+			try {
+				String ruleType = entry.getKey();
+				String methodName = entry.getValue();
+				String completeMethodName = "get" + methodName.substring(0, 1).toUpperCase() + methodName.substring(1);
+				Integer value = null;
+				if(player != null && ruleType.startsWith("PLAYER")) {
 					Method methodToInvoke = playerClass.getMethod(completeMethodName);
-					Integer value = (Integer) methodToInvoke.invoke(player, new Object[0]);
-					processedValues.add(value);
-				} catch (NoSuchMethodException e) {
-					e.printStackTrace();
-				} catch (InvocationTargetException e) {
-					e.printStackTrace();
-				} catch (IllegalArgumentException e) {
-					e.printStackTrace();
-				} catch (IllegalAccessException e) {
-					e.printStackTrace();
+					value = (Integer) methodToInvoke.invoke(player, new Object[0]);
 				}
-			}
-		}
-		if (gamePlayer != null) {
-			Class gamePlayerClass = GamePlayer.class;
-			for (String methodName : methodNameList) {
-
-				try {
-					// CamelCases the method name
-					String completeMethodName = "get"
-							+ methodName.substring(0, 1).toUpperCase()
-							+ methodName.substring(1);
+				if(gamePlayer != null && ruleType.startsWith("GAMEPLAYER")) {
 					Method methodToInvoke = gamePlayerClass.getMethod(completeMethodName);
-					Integer value = (Integer) methodToInvoke.invoke(gamePlayer, new Object[0]);
-					processedValues.add(value);
-				} catch (NoSuchMethodException e) {
-					e.printStackTrace();
-				} catch (InvocationTargetException e) {
-					e.printStackTrace();
-				} catch (IllegalArgumentException e) {
-					e.printStackTrace();
-				} catch (IllegalAccessException e) {
-					e.printStackTrace();
+					value = (Integer) methodToInvoke.invoke(gamePlayer, new Object[0]);
 				}
+				processedValues.add(value);
+			} catch(Exception e) {
+
+				//Needs better error handling
+				e.printStackTrace();
 			}
 		}
 		return processedValues;
@@ -147,15 +128,13 @@ public class RuleHandler {
 			achievementGranted = total.compareTo(constant) == 1;
 			break;
 		case GREATER_THAN_OR_EQUAL:
-			achievementGranted = total.compareTo(constant) == 0
-					|| total.compareTo(constant) == 1;
+			achievementGranted = total.compareTo(constant) == 0 || total.compareTo(constant) == 1;
 			break;
 		case LESS_THAN:
 			achievementGranted = total.compareTo(constant) == -1;
 			break;
 		case LESS_THAN_OR_EQUAL:
-			achievementGranted = total.compareTo(constant) == 0
-					|| total.compareTo(constant) == -1;
+			achievementGranted = total.compareTo(constant) == 0 || total.compareTo(constant) == -1;
 			break;
 		case NOT_EQUAL:
 			achievementGranted = !total.equals(constant);
@@ -169,31 +148,16 @@ public class RuleHandler {
 		boolean isWellFormed = true;
 
 		// The numbersList cannot be empty and the others cannot be null
-		if (methodNameList.isEmpty() || comparator == null || constant == null) {
+		if (methodNameMap.isEmpty() || comparator == null || constant == null) {
 			isWellFormed = false;
 		}
 
 		// If numbersList has x elements, operatorsList must have x-1 elements.
-		int numbersListMinusOne = methodNameList.size() - 1;
+		int numbersListMinusOne = methodNameMap.size() - 1;
 		if (operatorsList.size() != numbersListMinusOne) {
 			isWellFormed = false;
 		}
 		return isWellFormed;
-	}
-
-	/**
-	 * @return the numbersList
-	 */
-	public final List<String> getMethodNameList() {
-		return methodNameList;
-	}
-
-	/**
-	 * @param methodNameList
-	 *            the methodNameList to set
-	 */
-	public final void setMethodNameList(List<String> methodNameList) {
-		this.methodNameList = methodNameList;
 	}
 
 	/**
@@ -239,5 +203,19 @@ public class RuleHandler {
 	 */
 	public final void setConstant(BigDecimal constant) {
 		this.constant = constant;
+	}
+
+	/**
+	 * @return the methodNameMap
+	 */
+	public final Map<String, String> getMethodNameMap() {
+		return methodNameMap;
+	}
+
+	/**
+	 * @param methodNameMap the methodNameMap to set
+	 */
+	public final void setMethodNameMap(Map<String, String> methodNameMap) {
+		this.methodNameMap = methodNameMap;
 	}
 }

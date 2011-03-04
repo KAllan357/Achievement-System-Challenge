@@ -52,7 +52,6 @@ public class RuleHandlerTest extends TestCase {
 		List<Rule> ruleList = getSharpshooterAchievementRuleList();
 		RuleHandler ruleHandler = new RuleHandler(ruleList);
 
-		Player player = GameHelper.createPlayer();
 		GamePlayer gamePlayer = GameHelper.createGamePlayer();
 		
 		//Process the XML section for getting information from objects

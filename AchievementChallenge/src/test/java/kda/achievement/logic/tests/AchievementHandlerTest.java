@@ -6,18 +6,14 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.junit.Assert;
-import org.junit.Ignore;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
 import junit.framework.TestCase;
 import kda.achievement.domain.Achievement;
-import kda.achievement.domain.Game;
-import kda.achievement.domain.GamePlayer;
 import kda.achievement.domain.Player;
 import kda.achievement.logic.AchievementHandler;
 
