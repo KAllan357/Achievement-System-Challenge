@@ -14,7 +14,9 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 
 import junit.framework.TestCase;
 import kda.achievement.domain.Achievement;
+import kda.achievement.domain.GamePlayer;
 import kda.achievement.domain.Player;
+import kda.achievement.helpers.GameHelper;
 import kda.achievement.logic.AchievementHandler;
 
 public class AchievementHandlerTest extends TestCase {
@@ -50,10 +52,25 @@ public class AchievementHandlerTest extends TestCase {
 	
 	public void testCheckForGlobalAchievements() throws FileNotFoundException {
 		AchievementHandler achievementHandler = new AchievementHandler();
-		Player player = new Player();
+		Player player = GameHelper.createPlayerWithWins();
 		List<Achievement> achievementList = getAchievementList();
 		List<Achievement> playerAchievementList = achievementHandler.checkForGlobalAchievements(player, achievementList);
 		Assert.assertNotNull(playerAchievementList);
+
+		//There should be two achievements in here
+		Assert.assertEquals(2, playerAchievementList.size());
+	}
+	
+	public void testCheckForGameAchievements() throws FileNotFoundException {
+		AchievementHandler achievementHandler = new AchievementHandler();
+		GamePlayer gamePlayer = GameHelper.createGamePlayerWithHits();
+		gamePlayer.setHitCount(50);
+		List<Achievement> achievementList = getAchievementList();
+		List<Achievement> playerAchievementList = achievementHandler.checkForGameAchievements(gamePlayer, achievementList);
+		Assert.assertNotNull(playerAchievementList);
+
+		//The gamePlayer should only have 1 achievement
+		Assert.assertEquals(1, playerAchievementList.size());
 	}
 	
 	private List<Achievement> getAchievementList() throws FileNotFoundException {

@@ -52,7 +52,7 @@ public class RuleHandlerTest extends TestCase {
 		List<Rule> ruleList = getSharpshooterAchievementRuleList();
 		RuleHandler ruleHandler = new RuleHandler(ruleList);
 
-		GamePlayer gamePlayer = GameHelper.createGamePlayer();
+		GamePlayer gamePlayer = GameHelper.createGamePlayerWithHits();
 		
 		//Process the XML section for getting information from objects
 		List<Integer> achievementValues = ruleHandler.processMethodNameMap(null, gamePlayer);
@@ -68,7 +68,7 @@ public class RuleHandlerTest extends TestCase {
 		List<Rule> ruleList = getSharpshooterAchievementRuleList();
 		RuleHandler ruleHandler = new RuleHandler(ruleList);
 
-		GamePlayer gamePlayer = GameHelper.createGamePlayer();
+		GamePlayer gamePlayer = GameHelper.createGamePlayerWithHits();
 		
 		//Process the XML section for getting information from objects
 		List<Integer> achievementValues = ruleHandler.processMethodNameMap(null, gamePlayer);
@@ -88,7 +88,7 @@ public class RuleHandlerTest extends TestCase {
 		List<Rule> ruleList = getBigWinnerAchievementRuleList();
 		RuleHandler ruleHandler = new RuleHandler(ruleList);
 		
-		Player player = GameHelper.createPlayer();
+		Player player = GameHelper.createPlayerWithWins();
 		player.setTotalWins(199);
 		List<Integer> achievementValues = ruleHandler.processMethodNameMap(player, null);
 		boolean achievementGranted = ruleHandler.processRuleEvaluation(achievementValues);
@@ -105,7 +105,7 @@ public class RuleHandlerTest extends TestCase {
 		List<Rule> ruleList = getBruiserAchievementRuleList();
 		RuleHandler ruleHandler = new RuleHandler(ruleList);
 		
-		GamePlayer gamePlayer = GameHelper.createGamePlayer();
+		GamePlayer gamePlayer = GameHelper.createGamePlayerWithHits();
 		gamePlayer.setTotalPhysicalDamageInflicted(30);
 		gamePlayer.setTotalMagicalDamageInflicted(20);
 		gamePlayer.setTotalDamageInflicted();
@@ -126,7 +126,7 @@ public class RuleHandlerTest extends TestCase {
 		List<Rule> ruleList = getVeteranAchievementRuleList();
 		RuleHandler ruleHandler = new RuleHandler(ruleList);
 		
-		Player player = GameHelper.createPlayer();
+		Player player = GameHelper.createPlayerWithWins();
 		player.setTotalGamesPlayed(998);
 		List<Integer> achievementValues = ruleHandler.processMethodNameMap(player, null);
 		boolean achievementGranted = ruleHandler.processRuleEvaluation(achievementValues);

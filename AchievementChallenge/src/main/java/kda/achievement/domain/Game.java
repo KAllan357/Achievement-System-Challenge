@@ -34,6 +34,24 @@ public class Game {
 		//Set up the game statistics
 		setNumberOfPlayers(totalPlayers);
 	}
+	
+	/**
+	 * Adds a player to each team respectively.
+	 * 
+	 * @param redPlayer
+	 * @param bluePlayer
+	 */
+	public void addGamePlayers(final GamePlayer redPlayer, final GamePlayer bluePlayer) {
+		int totalPlayers = redTeam.size() + blueTeam.size();
+		totalPlayers = totalPlayers + 2;
+		if(totalPlayers > 10) throw new IllegalArgumentException("Both teams cannot have more than 10 players!");
+		if(redPlayer == null || bluePlayer == null) throw new IllegalArgumentException("Both arguments must be passed with a value!");
+		
+		//We can add new players if the new total isn't greater than 10 and as long as 1 member is added to each team.
+		this.redTeam.add(redPlayer);
+		this.blueTeam.add(bluePlayer);
+		
+	}
 
 	/**
 	 * @return the numberOfPlayers

@@ -1,0 +1,12 @@
+<Achievement type="Game">
+	<Name>Team Carry</Name>
+	<ShortDescription>You teach others what its like to deal damage!</ShortDescription>
+	<LongDescription>A player receives this achievement for inflicting more than 2 times damage than he or she receives.</LongDescription>
+	<Rules>
+		<Rule type="GAMEPLAYER" method="totalDamageInflicted"/>
+		<Rule type="MATH" method="DIVIDE"/>
+		<Rule type="GAMEPLAYER" method="totalDamageReceived"/>
+		<Rule type="EVAL" method="GREATER_THAN_OR_EQUAL"/>
+		<Rule type="CONSTANT" value="2"/>
+	</Rules>
+</Achievement>

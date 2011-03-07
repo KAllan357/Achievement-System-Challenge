@@ -31,6 +31,11 @@ public class Achievement {
 		
 	}
 	
+	@Override
+	public String toString() {
+		return "Achievement Unlocked! " + this.name + ": " + this.shortDescription;
+	}
+	
 	/**
 	 * @return the name
 	 */
