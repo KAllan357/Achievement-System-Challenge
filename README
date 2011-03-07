@@ -1,10 +1,49 @@
 Kyle Allan
+KAllan357@gmail.com
+https://github.com/KAllan357/Achievement-System-Challenge
+
+3/7/2011
+
+Completed all code and verified that my unit tests work and print out the appropriate information.
+
 2/1/2011
 
-This is a coding exercise that came from the Riot Games careers website which I navigated to while looking at the game League of Legends. The URL can be found at http://www.riotgames.com/careers/software-engineer-java-pvpnet-platform-los-angeles. The actual document can be found at the address http://s3.amazonaws.com/riot-HR/Java-Platform_Coding_challenge.doc.
+This is a coding exercise that came from the Riot Games careers website which I navigated to while looking at the game League of Legends. The URL can be found at http://www.riotgames.com/careers/software-engineer-java-pvpnet-platform-los-angeles. The actual document can be found at the URL http://s3.amazonaws.com/riot-HR/Java-Platform_Coding_challenge.doc.
 
-This should be an interesting exercise to practice my Java skills.
+Explanation of Methods
+
+I decided to create an easily extensible DSL (Domain Specific Language) for modeling an Achievement. After writing the initial domain objects, I created an XML interpretation of each Achievement listed in the document. They all accessed a particular property on one of the domain objects, optionally did some math on another property of that object, and compared that against a set constant.
+
+XStream provides an excellent and simple way of creating POJO's from an XML document. Once I could easily create Achievement objects, I created the RuleHandler object for taking those pieces and doing the rule processing. This involves a bit of Java Reflection, to access particular properties on the domain objects. Rule processing also involves a few switch statements and enums to simplify the "Math" and "Comparison" sections of the code.
 
 Installation Instructions
 
+To install...
+
 Execution Instructions
+
+Once downloaded, there are two ways to run the unit tests to see the Achievement results.
+
+From a terminal application, navigate to the downloaded directory where the Maven pom.xml file is located. At the prompt execute $ mvn clean install to build the project and execute the unit tests. The output from CodingChallengeTest should indicate what achievements were earned for which player at the end of a game.
+
+View the CodingChallengeTest inside Eclipse and execute it is a JUnit test. This should print the achievement information to the console of Eclipse.
+
+Improvements
+
+There are still some refinements that could be made to this solution:
+
+* Define an XSD to give a proper outline to what can be appropriate in the DSL for Achievements.
+* The RuleHandler could be more robust and may fail in certain XML configurations.
+* So far, all achievements are evaluating BigDecimals and the RuleHandler can only handle numbers. If achievements are introduced to compare Strings or other objects, it will fail.
+* Implement some more robust error handling and logging (Log4J).
+* Some JUnit tests may start to fail as more Achievements are added. It is usually fine for a test to fail, but I may be a bit aggressive in some of my testing.
+
+Example of Output
+
+The Player in this game Shaq earned the following achievements:
+Achievement Unlocked! Bruiser: You can really dish out the pain!
+Achievement Unlocked! Team Carry: You teach others what its like to deal damage!
+
+The Player in this game Ryan earned the following achievements:
+Achievement Unlocked! Bruiser: You can really dish out the pain!
+Achievement Unlocked! Sharpshooter: Your aim is tried and true!
