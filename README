@@ -2,11 +2,7 @@ Kyle Allan
 KAllan357@gmail.com
 https://github.com/KAllan357/Achievement-System-Challenge
 
-3/7/2011
-
-Completed all code and verified that my unit tests work and print out the appropriate information.
-
-2/1/2011
+Started 2/1/2011 and finished 3/7/2011
 
 This is a coding exercise that came from the Riot Games careers website which I navigated to while looking at the game League of Legends. The URL can be found at http://www.riotgames.com/careers/software-engineer-java-pvpnet-platform-los-angeles. The actual document can be found at the URL http://s3.amazonaws.com/riot-HR/Java-Platform_Coding_challenge.doc.
 
@@ -21,9 +17,13 @@ Installation Instructions
 1. To install, click the Downloads button on the page - https://github.com/KAllan357/Achievement-System-Challenge. Select your preferred format. Extract the archive.
 2. Create a new workspace in Eclipse and open it in Eclipse.
 3. Create a new Java Project in the project Explorer. Call it "AchievementChallenge"
-4. Right click on the new project and select Import. Under the general tab, select File System and hit Next. Navigate to the AchievementChallenge directory that was extracted from the archive and click OK. The words "AchievementChallenge" should appear in the right pane - check the root box and hit Finish. It will ask you if you want to overwrite your .project file. Go ahead and say yes.
-5. If this was done correctly, the project should be in its proper form with a src/main/java, src/test/java, and src/main/resources under the root (as well as some other entries).
-6. Maven should auto-resolve your dependencies (if Maven is installed). Note: The only two dependencies are JUnit 4 and XStream 1.3.1. XStream can be downloaded from http://xstream.codehaus.org/download.html.
+4. Right click on the new project and select Import. Under the general tab, select File System and hit Next. Navigate to the AchievementChallenge directory that was 
+   extracted from the archive and click OK. The words "AchievementChallenge" should appear in the right pane - check the root box and hit Finish. It will ask you if you 
+   want to overwrite your .project file. Go ahead and say yes.
+5. If this was done correctly, the project should be in its proper form with a src/main/java, src/test/java, and src/main/resources under the root (as well as some 
+   other entries).
+6. Maven should auto-resolve your dependencies (if Maven is installed). Note: The only two dependencies are JUnit 4 and XStream 1.3.1. XStream can be downloaded from 
+   http://xstream.codehaus.org/download.html.
 
 Execution Instructions
 
@@ -33,13 +33,28 @@ From a terminal application, navigate to the downloaded directory where the Mave
 
 View the CodingChallengeTest inside Eclipse and execute it is a JUnit test. This should print the achievement information to the console of Eclipse.
 
+Viewing the Code
+
+All the code can be viewed at Github or viewed in Eclipse once it has all been imported. The following is a brief explanation of the layout:
+** Under src/main/java
+	* kda.achievement.domain contains my interpretation of all the domain classes that need implementations.
+	* kda.achievement.enumeration contains some Java enum types to help simplify the logic in other areas.
+	* kda.achievement.logic contains the Achievement and Rule handler code which does almost all of the work in processing achievements.
+** Under src/test/java
+	* kda.achievement.helpers contains a helper class for assisting in the creation of some common domain objects.
+	* kda.achievement.logic.tests contains the JUnit tests for my domain objects and handlers. This also contains the CodingChallenge test case that implements some 
+	  extra functions.
+** Under src/main/resources
+	* xml contains the XML resources that are the DSL interpretation of the Achievements.
+
 Improvements
 
 There are still some refinements that could be made to this solution:
 
 * Define an XSD to give a proper outline to what can be appropriate in the DSL for Achievements.
 * The RuleHandler could be more robust and may fail in certain XML configurations.
-* So far, all achievements are evaluating BigDecimals and the RuleHandler can only handle numbers. If achievements are introduced to compare Strings or other objects, it will fail.
+* So far, all achievements are evaluating BigDecimals and the RuleHandler can only handle numbers. If achievements are introduced to compare Strings or other objects, 
+  it will fail.
 * Implement some more robust error handling and logging (Log4J).
 * Some JUnit tests may start to fail as more Achievements are added. It is usually fine for a test to fail, but I may be a bit aggressive in some of my testing.
 
