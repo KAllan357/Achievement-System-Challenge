@@ -27,6 +27,9 @@ public class Achievement {
 	@XStreamAlias("Rules")
 	private LinkedList<Rule> rules;
 	
+	/**
+	 * minimal constructor
+	 */
 	public Achievement() {
 		
 	}

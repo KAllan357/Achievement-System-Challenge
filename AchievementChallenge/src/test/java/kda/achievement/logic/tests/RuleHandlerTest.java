@@ -34,6 +34,9 @@ public class RuleHandlerTest extends TestCase {
 		super.tearDown();
 	}
 	
+	/**
+	 * Tests the construction of a RuleHandler object
+	 */
 	public void testRuleHandlerConstruction() {
 		
 		//Get the ruleList for the Sharpshooter Achievement
@@ -46,6 +49,9 @@ public class RuleHandlerTest extends TestCase {
 		Assert.assertEquals(new BigDecimal(.75), ruleHandler.getConstant());
 	}
 	
+	/**
+	 * Tests the reflection component of the RuleHandler object
+	 */
 	public void testNumbersReflection() {
 		
 		//Get some rules and create a Handler
@@ -58,11 +64,14 @@ public class RuleHandlerTest extends TestCase {
 		List<Integer> achievementValues = ruleHandler.processMethodNameMap(null, gamePlayer);
 		Assert.assertNotNull(achievementValues);
 
-		//GameHelper.createPlayer creates a player with 30 'hits' in
+		//GameHelper.createGamePlayerWithHits creates a player with 30 'hits' in
 		//conjunction with the Sharpshooter Achievement
 		Assert.assertEquals(30, achievementValues.get(0));
 	}
 	
+	/**
+	 * Tests to ensure that the Sharpshooter Achievement is granted correctly
+	 */
 	public void testSharpshooterAchievementRulesEvaluation() {
 
 		List<Rule> ruleList = getSharpshooterAchievementRuleList();
@@ -83,6 +92,9 @@ public class RuleHandlerTest extends TestCase {
 		Assert.assertTrue(achievementGranted);
 	}
 	
+	/**
+	 * Tests to ensure that the Big Winner Achievement is granted correctly
+	 */
 	public void testBigWinnerAchievement() {
 		
 		List<Rule> ruleList = getBigWinnerAchievementRuleList();
@@ -100,6 +112,9 @@ public class RuleHandlerTest extends TestCase {
 		Assert.assertTrue(achievementGranted);
 	}
 	
+	/**
+	 * Tests to ensure that the Bruiser Achievement is granted correctly
+	 */
 	public void testBruiserAchievement() {
 		
 		List<Rule> ruleList = getBruiserAchievementRuleList();
@@ -121,6 +136,9 @@ public class RuleHandlerTest extends TestCase {
 		Assert.assertTrue(achievementGranted);
 	}
 	
+	/**
+	 * Tests to ensure that the Veteran Achievement is granted correctly
+	 */
 	public void testVeteranAchievement() {
 		
 		List<Rule> ruleList = getVeteranAchievementRuleList();
@@ -138,6 +156,10 @@ public class RuleHandlerTest extends TestCase {
 		Assert.assertTrue(achievementGranted);
 	}
 	
+	/**
+	 * Gets the Sharpshooter Achievement XML
+	 * @return
+	 */
 	private List<Rule> getSharpshooterAchievementRuleList() {
 		
 		InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("xml/sharpshooterAchievement.xml");
@@ -147,6 +169,10 @@ public class RuleHandlerTest extends TestCase {
 		return achievement.getRules();
 	}
 	
+	/**
+	 * Gets the Big Winner Achievement XML
+	 * @return
+	 */
 	private List<Rule> getBigWinnerAchievementRuleList() {
 		
 		InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("xml/bigWinnerAchievement.xml");
@@ -156,6 +182,10 @@ public class RuleHandlerTest extends TestCase {
 		return achievement.getRules();
 	}
 	
+	/**
+	 * Gets the Bruiser Achievement XML
+	 * @return
+	 */
 	private List<Rule> getBruiserAchievementRuleList() {
 		
 		InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("xml/bruiserAchievement.xml");
@@ -165,6 +195,10 @@ public class RuleHandlerTest extends TestCase {
 		return achievement.getRules();
 	}
 
+	/**
+	 * Gets the Veteran Achievement XML
+	 * @return
+	 */
 	private List<Rule> getVeteranAchievementRuleList() {
 	
 	InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("xml/veteranAchievement.xml");

@@ -14,7 +14,7 @@ public class GamePlayer {
 	private int totalPhysicalDamageInflicted;
 	private int totalMagicalDamageInflicted;
 	
-	//New Data!
+	//New data added as per the requirements.
 	private int totalDamageReceived;
 	private int totalPhysicalDamageReceived;
 	private int totalMagicalDamageReceived;
@@ -110,8 +110,7 @@ public class GamePlayer {
 	/**
 	 * @param totalPhysicalDamageInflicted the totalPhysicalDamageInflicted to set
 	 */
-	public final void setTotalPhysicalDamageInflicted(
-			int totalPhysicalDamageInflicted) {
+	public final void setTotalPhysicalDamageInflicted(int totalPhysicalDamageInflicted) {
 		this.totalPhysicalDamageInflicted = totalPhysicalDamageInflicted;
 	}
 

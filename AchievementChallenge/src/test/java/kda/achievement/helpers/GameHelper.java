@@ -7,6 +7,12 @@ import kda.achievement.domain.Game;
 import kda.achievement.domain.GamePlayer;
 import kda.achievement.domain.Player;
 
+/**
+ * Helper class for creating different objects for testing purposes
+ * 
+ * @author kyleallan
+ *
+ */
 public class GameHelper {
 
 	/**
@@ -19,6 +25,11 @@ public class GameHelper {
 		return game;
 	}
 	
+	/**
+	 * Creates a team with some pre-populated values
+	 * 
+	 * @return List<GamePlayer>
+	 */
 	public static List<GamePlayer> createRedTeam() {
 		List<GamePlayer> redTeam = new ArrayList<GamePlayer>();
 		
@@ -46,6 +57,11 @@ public class GameHelper {
 		return redTeam;
 	}
 
+	/**
+	 * Creates a team with some pre-populated players.
+	 * 
+	 * @return List<GamePlayer>
+	 */
 	public static List<GamePlayer> createBlueTeam() {
 		List<GamePlayer> blueTeam = new ArrayList<GamePlayer>();
 		
@@ -73,7 +89,11 @@ public class GameHelper {
 		return blueTeam;
 	}
 
-
+	/**
+	 * Creates a player that has earned some winning related achievements
+	 * 
+	 * @return Player
+	 */
 	public static Player createPlayerWithWins() {
 		Player player = new Player();
 		player.setPlayerName("Jimbo");
@@ -82,7 +102,11 @@ public class GameHelper {
 		return player;
 	}
 
-
+	/**
+	 * Creates a player that has earned some hit count related achievements
+	 * 
+	 * @return Player
+	 */
 	public static GamePlayer createGamePlayerWithHits() {
 
 		GamePlayer player1 = new GamePlayer("Stu");

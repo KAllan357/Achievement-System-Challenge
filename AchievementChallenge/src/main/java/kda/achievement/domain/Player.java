@@ -14,6 +14,7 @@ public class Player {
 	private int totalKills;
 	private int totalDeaths;
 	
+	//A persistent set of achievements this player has won over his lifetime
 	private List<Achievement> achievementsList;
 
 	/**

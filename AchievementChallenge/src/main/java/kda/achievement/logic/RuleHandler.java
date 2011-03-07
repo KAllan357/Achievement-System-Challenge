@@ -4,7 +4,7 @@ import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -17,7 +17,7 @@ import kda.achievement.enumeration.Operators;
 
 public class RuleHandler {
 
-	private Map<String, String> methodNameMap = new HashMap<String, String>();
+	private Map<String, String> methodNameMap = new LinkedHashMap<String, String>();
 	private List<Operators> operatorsList = new ArrayList<Operators>();
 	private Comparators comparator;
 	private BigDecimal constant;
@@ -26,7 +26,6 @@ public class RuleHandler {
 	 * minimal constructor
 	 */
 	public RuleHandler() {
-		
 	}
 	
 	/**
@@ -39,6 +38,14 @@ public class RuleHandler {
 		setupRuleHandler(rulesList);
 	}
 	
+	/**
+	 * Processes the logic and values that make up this object using the passed in
+	 * player and gamePlayer objects.
+	 * 
+	 * @param player
+	 * @param gamePlayer
+	 * @return
+	 */
 	public boolean processRule(final Player player, final GamePlayer gamePlayer) {
 		List<Integer> methodValues = processMethodNameMap(player, gamePlayer);
 		return processRuleEvaluation(methodValues);
@@ -171,6 +178,14 @@ public class RuleHandler {
 		return isWellFormed;
 	}
 	
+	/**
+	 * Used when it is necessary to reconstruct this RuleHandler instance.
+	 * The values of this instance's members are cleared, and are reevaluated
+	 * for the passed in rulesList parameter. Lastly, the RuleHandler is checked
+	 * to be well-formed with the provided rules.
+	 * 
+	 * @param rulesList
+	 */
 	public final void setupRuleHandler(final List<Rule> rulesList) {
 
 		clearRuleHandler();
@@ -184,6 +199,7 @@ public class RuleHandler {
 
 				// Add to numbersList
 				this.methodNameMap.put(ruleType + mapIndex, ruleMethod);
+				mapIndex++;
 			}
 			if (Rule.TYPE_MATH.equals(ruleType)) {
 
@@ -200,20 +216,23 @@ public class RuleHandler {
 				// Add as constant
 				this.constant = new BigDecimal(ruleValue);
 			}
-			mapIndex++;
 		}
 		if (!isWellFormed()) {
 			throw new IllegalArgumentException("This rulesList was not well formed. Please ensure that the Rules are defined correctly.");
 		}
 	}
 	
+	/**
+	 * Clears the values stored in this RuleHandler instance, setting it up for more
+	 * rule processing without the need to create a new handler.
+	 */
 	private void clearRuleHandler() {
 		
 		//Resets the RuleHandler so that it can process another list of rules
-		methodNameMap = new HashMap<String, String>();
-		operatorsList = new ArrayList<Operators>();
-		Comparators comparator = null;
-		BigDecimal constant = null;
+		this.methodNameMap = new LinkedHashMap<String, String>();
+		this.operatorsList = new ArrayList<Operators>();
+		this.comparator = null;
+		this.constant = null;
 	}
 
 	/**

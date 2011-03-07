@@ -51,6 +51,17 @@ public class AchievementHandler {
 		return returnMap;
 	}
 	
+	/**
+	 * Checks the provided player for any Achievement that exists in the achievementList parameter that
+	 * are labeled as Global. These achievements are not tied directly to a Player's statistics in a 
+	 * particular game, but to their overall statistics that make up the {@link Player} object. The 
+	 * returned List is a collection of all the global Achievements this Player has earned that also 
+	 * exist in the achievementList parameter.
+	 * 
+	 * @param player
+	 * @param achievementList
+	 * @return
+	 */
 	public List<Achievement> checkForGlobalAchievements(Player player, List<Achievement> achievementList) {
 		List<Achievement> achievementsOwned = new ArrayList<Achievement>();
 		for(Achievement achievementToTest : achievementList) {
@@ -66,6 +77,15 @@ public class AchievementHandler {
 		return achievementsOwned;
 	}
 	
+	/**
+	 * Checks a particular {@link GamePlayer} for Achievements that are found in the achievementList parameter
+	 * that are of the type 'Game'. The List returned is a collection of those Achievements this particular
+	 * GamePlayer has earned.
+	 * 
+	 * @param gamePlayer
+	 * @param achievementList
+	 * @return
+	 */
 	public List<Achievement> checkForGameAchievements(GamePlayer gamePlayer, List<Achievement> achievementList) {
 		List<Achievement> achievementsOwned = new ArrayList<Achievement>();
 		for(Achievement achievementToTest : achievementList) {

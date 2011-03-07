@@ -47,9 +47,12 @@ public class AchievementHandlerTest extends TestCase {
 			achievementFiles.add(achievement);
 		}
 		Assert.assertTrue(!achievementFiles.isEmpty());
-		Assert.assertEquals(4, achievementFiles.size());
+		Assert.assertEquals(5, achievementFiles.size());
 	}
 	
+	/**
+	 *  Tests to see if a Player has any Global achievements.
+	 */
 	public void testCheckForGlobalAchievements() throws FileNotFoundException {
 		AchievementHandler achievementHandler = new AchievementHandler();
 		Player player = GameHelper.createPlayerWithWins();
@@ -61,6 +64,9 @@ public class AchievementHandlerTest extends TestCase {
 		Assert.assertEquals(2, playerAchievementList.size());
 	}
 	
+	/**
+	 * Checks to see if a GamePlayer has any Game achievements
+	 */
 	public void testCheckForGameAchievements() throws FileNotFoundException {
 		AchievementHandler achievementHandler = new AchievementHandler();
 		GamePlayer gamePlayer = GameHelper.createGamePlayerWithHits();
@@ -73,6 +79,11 @@ public class AchievementHandlerTest extends TestCase {
 		Assert.assertEquals(1, playerAchievementList.size());
 	}
 	
+	/**
+	 * Gets the list of achievements in the xml directory
+	 * @return
+	 * @throws FileNotFoundException
+	 */
 	private List<Achievement> getAchievementList() throws FileNotFoundException {
 		List<Achievement> achievementList = new ArrayList<Achievement>();
 		

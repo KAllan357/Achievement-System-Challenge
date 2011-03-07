@@ -16,6 +16,13 @@ public class Game {
 	List<GamePlayer> redTeam;
 	List<GamePlayer> blueTeam;
 	
+	/**
+	 * Constructor to create a new Game. The provided teams must not be null,
+	 * have an equal number of players, and have a size between 6 and 10.
+	 * 
+	 * @param redTeam
+	 * @param blueTeam
+	 */
 	public Game(final List<GamePlayer> redTeam, final List<GamePlayer> blueTeam) {
 		
 		if(redTeam == null) throw new IllegalArgumentException("redTeam cannot be null!");
@@ -36,7 +43,8 @@ public class Game {
 	}
 	
 	/**
-	 * Adds a player to each team respectively.
+	 * Adds a player to each team respectively. Adding players cannot increase
+	 * the total size beyond 10.
 	 * 
 	 * @param redPlayer
 	 * @param bluePlayer

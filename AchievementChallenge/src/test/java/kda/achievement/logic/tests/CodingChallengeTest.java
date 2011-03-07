@@ -96,7 +96,7 @@ public class CodingChallengeTest extends TestCase {
 	
 	/**
 	 * Tests whether a player has the global achievements that key
-	 * off a player's global stats
+	 * off a player's global stats.
 	 */
 	public void testGlobalAchievements() throws FileNotFoundException {
 
@@ -104,8 +104,25 @@ public class CodingChallengeTest extends TestCase {
 		
 		//Create a player that has the Veteran Achievement
 		Player player = new Player();
+		player.setPlayerName("Kyle");
 		player.setTotalGamesPlayed(5000);
 		List<Achievement> achievementList = getAchievementList();
+		printGlobalAchievementListings(player, achievementList);
+		
+		Player anotherPlayer = new Player();
+		anotherPlayer.setPlayerName("Allan");
+		anotherPlayer.setTotalGamesPlayed(5000);
+		anotherPlayer.setTotalWins(3000);
+		printGlobalAchievementListings(anotherPlayer, achievementList);
+	}
+
+	/**
+	 * Helper method for printing global achievement information for a specific player.
+	 * 
+	 * @param player
+	 * @param achievementList
+	 */
+	private void printGlobalAchievementListings(Player player, List<Achievement> achievementList) {
 		List<Achievement> unlockedAchievements = achievementHandler.checkForGlobalAchievements(player, achievementList);
 		System.out.println("The Player " + player.getPlayerName() + " has earned the following global achievements:");
 		for(Achievement unlockedAchievement : unlockedAchievements) {
@@ -114,15 +131,21 @@ public class CodingChallengeTest extends TestCase {
 		if(unlockedAchievements.isEmpty()) {
 			System.out.println("No Achievements Earned!");
 		}
+		System.out.println();
 	}
 	
+	/**
+	 * Helper method for printing the map data to the console.
+	 * 
+	 * @param playerAchievementMap
+	 */
 	private void printGameAchievementListings(
 			Map<GamePlayer, List<Achievement>> playerAchievementMap) {
 		Assert.assertFalse(playerAchievementMap.isEmpty());
 		for(Entry<GamePlayer, List<Achievement>> entry : playerAchievementMap.entrySet()) {
 			GamePlayer player = entry.getKey();
 			List<Achievement> achievements = entry.getValue();
-			System.out.println("The Player in this game " + player.getPlayerName() + " had the following achievements:");
+			System.out.println("The Player in this game " + player.getPlayerName() + " earned the following achievements:");
 			for(Achievement earned : achievements) {
 				System.out.println(earned.toString());
 			}
@@ -133,6 +156,11 @@ public class CodingChallengeTest extends TestCase {
 		}
 	}
 
+	/**
+	 * Gets the list of achievements in the xml directory
+	 * @return
+	 * @throws FileNotFoundException
+	 */
 	private List<Achievement> getAchievementList() throws FileNotFoundException {
 		List<Achievement> achievementList = new ArrayList<Achievement>();
 		
