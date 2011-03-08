@@ -12,6 +12,8 @@ I decided to create an easily extensible DSL (Domain Specific Language) for mode
 
 XStream provides an excellent and simple way of creating POJO's from an XML document. Once I could easily create Achievement objects, I created the RuleHandler object for taking those pieces and doing the rule processing. This involves a bit of Java Reflection, to access particular properties on the domain objects. Rule processing also involves a few switch statements and enums to simplify the "Math" and "Comparison" sections of the code.
 
+I added two new fields to the GamePlayer object - totalDamageReceived, totalPhysicalDamageReceived, and totalMagicalDamageReceived. These are used in conjunction with the new achievement - Team Carry. This achievement is awarded when: (totalDamageInflicted / totalDamageReceived) >= 2.
+
 Installation Instructions
 
 1. To install, click the Downloads button on the page - https://github.com/KAllan357/Achievement-System-Challenge. Select your preferred format. Extract the archive.
@@ -20,8 +22,8 @@ Installation Instructions
 4. Right click on the new project and select Import. Under the general tab, select File System and hit Next. Navigate to the AchievementChallenge directory that was extracted from the archive and click OK. The words "AchievementChallenge" should appear in the right pane - check the root box and hit Finish. It will ask you if you  want to overwrite your .project file. Go ahead and say yes.
 5. If this was done correctly, the project should be in its proper form with a src/main/java, src/test/java, and src/main/resources under the root (as well as some 
    other entries).
-6. Maven should auto-resolve your dependencies (if Maven is installed). Note: The only two dependencies are JUnit 4 and XStream 1.3.1. XStream can be downloaded from 
-   http://xstream.codehaus.org/download.html.
+6. Maven should auto-resolve your dependencies (if Maven is installed). Note: The only dependencies are JUnit 4 and XStream 1.3.1, and xpp3-1.1.4c (part of XStream).
+6a. If you do not have Maven, the dependency jars are included in the /lib folders. Simply associate them into the AchievementChallenge build path in Eclipse to resolve them.
 
 Execution Instructions
 
