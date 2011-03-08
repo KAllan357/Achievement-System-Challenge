@@ -19,7 +19,7 @@ Installation Instructions
 1. To install, click the Downloads button on the page - https://github.com/KAllan357/Achievement-System-Challenge. Select your preferred format. Extract the archive.
 2. Create a new workspace in Eclipse and open it in Eclipse.
 3. Create a new Java Project in the project Explorer. Call it "AchievementChallenge"
-4. Right click on the new project and select Import. Under the general tab, select File System and hit Next. Navigate to the AchievementChallenge directory that was extracted from the archive and click OK. The words "AchievementChallenge" should appear in the right pane - check the root box and hit Finish. It will ask you if you  want to overwrite your .project file. Go ahead and say yes.
+4. Right click on the new project and select Import. Under the general tab, select File System and hit Next. Navigate to the AchievementChallenge directory that was extracted from the archive and click OK. The words "AchievementChallenge" should appear in the left pane - check the root box and hit Finish. It will ask you if you  want to overwrite your .project file. Go ahead and say yes.
 5. If this was done correctly, the project should be in its proper form with a src/main/java, src/test/java, and src/main/resources under the root (as well as some 
    other entries).
 6. Maven should auto-resolve your dependencies (if Maven is installed). Note: The only dependencies are JUnit 4 and XStream 1.3.1, and xpp3-1.1.4c (part of XStream).
