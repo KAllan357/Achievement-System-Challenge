@@ -108,10 +108,11 @@ public class RuleHandler {
 		boolean achievementGranted = false;
 		if(achievementValues != null && !achievementValues.isEmpty()) {
 			BigDecimal total = new BigDecimal(achievementValues.get(0));
+			int operatorCount = 0;
 			for (Integer value : achievementValues.subList(1, achievementValues.size())) {
 	
 				// for the rest of the list, get an operator and do the math.
-				Operators operator = operatorsList.get(0);
+				Operators operator = operatorsList.get(operatorCount);
 				BigDecimal valueBigDecimal = new BigDecimal(value);
 				switch (operator) {
 				case ADD:
@@ -129,6 +130,7 @@ public class RuleHandler {
 					total = total.subtract(valueBigDecimal);
 					break;
 				}
+				operatorCount++;
 			}
 	
 			// Depending on the comparator, do a different evaluation to the constant
